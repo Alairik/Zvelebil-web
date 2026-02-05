@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kontaktujte mě ohledně tvorby webu. Konzultace je nezávazná a zdarma. Email: info@zvelebil.online">
+    <meta name="keywords" content="kontakt, tvorba webů, poptávka webu">
+    <title>Kontakt | Zvelebil.online</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">zvelebil<span>.online</span></a>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="sluzby.html">Služby</a></li>
+                <li><a href="../index.html#proc-ja">Proč já</a></li>
+                <li><a href="cenik.html">Ceník</a></li>
+                <li><a href="../index.html#reference">Reference</a></li>
+                <li><a href="o-mne.html">O mně</a></li>
+                <li><a href="kontakt.html" class="nav-cta active">Napište mi</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="fade-in">Napište mi</h1>
+            <p class="fade-in delay-1">Máte projekt na srdci? Ozvěte se a nezávazně si popovídáme o možnostech.</p>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info-page reveal">
+                    <h2>Pojďme spolupracovat</h2>
+                    <p class="contact-lead">Popište mi váš projekt nebo nápad. Odpovím vám do 24 hodin.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>Email</h4>
+                                <a href="mailto:info@zvelebil.online">info@zvelebil.online</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-benefits">
+                        <h3>Co můžete očekávat</h3>
+                        <ul>
+                            <li>Odpověď do 24 hodin</li>
+                            <li>Nezávaznou konzultaci zdarma</li>
+                            <li>Upřímný názor na váš projekt</li>
+                            <li>Cenovou nabídku na míru</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper reveal delay-1">
+                    <form class="contact-form-page" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Jméno *</label>
+                            <input type="text" id="name" name="name" required placeholder="Vaše jméno">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="vas@email.cz">
+                        </div>
+                        <div class="form-group">
+                            <label for="project">Typ projektu</label>
+                            <select id="project" name="project">
+                                <option value="">Vyberte typ projektu</option>
+                                <option value="jednostrankovy">Jednostránkový web</option>
+                                <option value="vicestrankovy">Vícestránkový web</option>
+                                <option value="jiny">Jiný / Nevím</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Předpokládaný rozpočet</label>
+                            <select id="budget" name="budget">
+                                <option value="">Vyberte rozpočet</option>
+                                <option value="10000">Do 10 000 Kč</option>
+                                <option value="10000-20000">10 000 - 20 000 Kč</option>
+                                <option value="20000+">20 000+ Kč</option>
+                                <option value="nevim">Nevím / Chci poradit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Zpráva *</label>
+                            <textarea id="message" name="message" rows="5" required placeholder="Popište váš projekt, nápad nebo dotaz..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">Odeslat zprávu</button>
+                        <p class="form-note">* Povinné pole. Vaše údaje nikam nepředávám.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="../index.html" class="logo">zvelebil<span>.online</span></a>
+                    <p>Moderní weby s pomocí AI</p>
+                </div>
+                <div class="footer-links">
+                    <a href="sluzby.html">Služby</a>
+                    <a href="cenik.html">Ceník</a>
+                    <a href="kontakt.html">Kontakt</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 zvelebil.online. Všechna práva vyhrazena.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+
+    <style>
+        .page-header {
+            background: var(--gradient-hero);
+            padding: calc(var(--spacing-3xl) + 80px) 0 var(--spacing-3xl);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: var(--color-white);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .page-header p {
+            color: var(--color-gray-300);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: var(--spacing-2xl);
+            align-items: start;
+        }
+
+        .contact-info-page h2 {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .contact-lead {
+            font-size: 1.1rem;
+            color: var(--color-gray-500);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-details {
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, rgba(232, 122, 30, 0.1) 0%, rgba(205, 127, 50, 0.1) 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--color-primary);
+        }
+
+        .contact-detail-item h4 {
+            font-size: 0.9rem;
+            color: var(--color-gray-500);
+            margin-bottom: 4px;
+        }
+
+        .contact-detail-item a {
+            color: var(--color-dark);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .contact-detail-item a:hover {
+            color: var(--color-primary);
+        }
+
+        .contact-benefits {
+            background: var(--color-off-white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-md);
+        }
+
+        .contact-benefits h3 {
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-benefits ul {
+            list-style: none;
+        }
+
+        .contact-benefits li {
+            padding: var(--spacing-xs) 0;
+            padding-left: var(--spacing-md);
+            position: relative;
+            color: var(--color-gray-700);
+        }
+
+        .contact-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: bold;
+        }
+
+        .contact-form-wrapper {
+            background: var(--color-white);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-form-page .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-form-page label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-dark);
+        }
+
+        .contact-form-page input,
+        .contact-form-page select,
+        .contact-form-page textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--color-gray-100);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+            background: var(--color-white);
+        }
+
+        .contact-form-page select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%236b6b8a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem;
+        }
+
+        .contact-form-page input:focus,
+        .contact-form-page select:focus,
+        .contact-form-page textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 4px rgba(232, 122, 30, 0.1);
+        }
+
+        .contact-form-page textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-note {
+            font-size: 0.85rem;
+            color: var(--color-gray-500);
+            margin-top: var(--spacing-md);
+            text-align: center;
+        }
+
+        .nav-menu a.active {
+            color: var(--color-white) !important;
+        }
+
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>
