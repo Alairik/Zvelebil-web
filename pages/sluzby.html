@@ -233,6 +233,9 @@
             const closeBtn = modal.querySelector('.contact-modal-close');
             const overlay = modal.querySelector('.contact-modal-overlay');
 
+            // Remove inline styles so CSS can take over
+            modal.removeAttribute('style');
+
             triggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {
                     e.preventDefault();

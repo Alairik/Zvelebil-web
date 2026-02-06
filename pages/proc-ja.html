@@ -190,9 +190,14 @@
         // Contact Modal functionality
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('contactModal');
+            if (!modal) return;
+
             const triggers = document.querySelectorAll('[data-contact-modal]');
             const closeBtn = modal.querySelector('.contact-modal-close');
             const overlay = modal.querySelector('.contact-modal-overlay');
+
+            // Remove inline styles so CSS can take over
+            modal.removeAttribute('style');
 
             triggers.forEach(trigger => {
                 trigger.addEventListener('click', (e) => {

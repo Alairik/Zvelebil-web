@@ -309,6 +309,9 @@ function initBenefitModal() {
 
     if (!modal || benefitCards.length === 0) return;
 
+    // Remove inline styles so CSS can take over
+    modal.removeAttribute('style');
+
     const modalNumber = document.getElementById('modalNumber');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
