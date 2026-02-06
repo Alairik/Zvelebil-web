@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - claude/ai-web-service-site-Ra9VF
 
 jobs:
   deploy:
