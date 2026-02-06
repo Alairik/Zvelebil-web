@@ -999,17 +999,17 @@ ul, ol {
 }
 
 @media (max-width: 768px) {
-    .nav-container {
-        justify-content: center;
-    }
-
-    .logo {
-        position: absolute;
-        left: var(--spacing-md);
-    }
-
     .nav-toggle {
         display: flex;
+        position: fixed;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+        background: var(--color-dark);
+        padding: 12px;
+        border-radius: var(--radius-sm);
+        box-shadow: var(--shadow-md);
     }
 
     .nav-menu {
