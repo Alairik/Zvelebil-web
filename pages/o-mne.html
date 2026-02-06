@@ -62,12 +62,7 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image-wrapper reveal">
-                    <div class="about-image-placeholder">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="8" r="4"/>
-                            <path d="M20 21a8 8 0 10-16 0"/>
-                        </svg>
-                    </div>
+                    <img src="../assets/Foto.jpg" alt="Foto autora" class="about-photo-page">
                     <div class="about-stats-box">
                         <div class="stat-item">
                             <span class="stat-num">6+</span>
@@ -299,23 +294,14 @@
             position: relative;
         }
 
-        .about-image-placeholder {
+        .about-photo-page {
             width: 280px;
             height: 280px;
-            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-bronze) 100%);
             border-radius: var(--radius-lg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
             margin: 0 auto;
+            display: block;
             box-shadow: var(--shadow-glow);
-        }
-
-        .about-image-placeholder svg {
-            width: 120px;
-            height: 120px;
-            stroke: var(--color-white);
-            opacity: 0.8;
         }
 
         .about-stats-box {

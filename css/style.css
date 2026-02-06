@@ -1065,6 +1065,15 @@ ul, ol {
     opacity: 0.8;
 }
 
+/* About Photo */
+.about-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    box-shadow: var(--shadow-glow);
+}
+
 /* --- Contact Section --- */
 .contact-content {
     display: grid;
