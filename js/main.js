@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initContactForm();
     initParallax();
+    initBenefitModal();
 });
 
 /**
@@ -298,3 +299,90 @@ function initActiveNavLinks() {
 
 // Initialize active nav links
 initActiveNavLinks();
+
+/**
+ * Benefit Modal - Shows detail popup on card click
+ */
+function initBenefitModal() {
+    const benefitCards = document.querySelectorAll('.benefit-card[data-benefit]');
+    const modal = document.getElementById('benefitModal');
+
+    if (!modal || benefitCards.length === 0) return;
+
+    const modalNumber = document.getElementById('modalNumber');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const modalClose = modal.querySelector('.benefit-modal-close');
+    const modalOverlay = modal.querySelector('.benefit-modal-overlay');
+
+    // Benefit data - content for each card
+    const benefitData = {
+        1: {
+            number: '01',
+            title: 'SEO ready, tracking ready, funguje od startu',
+            body: `
+                <p>V základu Vám nastavím Google Analytics a GTM, abyste od prvního dne viděli, kdo na web chodí a co tam dělá.</p>
+                <p>Struktura webu, meta tagy, rychlost načítání, mobile-first – to všechno řeším hned při vytváření. Ne až když zjistíte, že Vás Google nenajde.</p>
+                <p>Tracking pro Meta nebo Google Ads? Podle domluvy. Ale základy máte pokryté.</p>
+            `
+        },
+        2: {
+            number: '02',
+            title: '10+ let v oboru, ne absolvent AI kurzu',
+            body: `
+                <p>Začínal jsem jako projekťák webových a e-shopových projektů. Osahal jsem WordPress, Shopify, PrestaShop i lokální krabice. Pak 6 let v digitálním marketingu.</p>
+                <p>Vím, kde jsou nástrahy. Vím, co se může pokazit.</p>
+                <p>AI používám, abych Vám dodal web rychle a levně – ale s knowhow člověka, co v tom žije denně.</p>
+            `
+        },
+        3: {
+            number: '03',
+            title: 'Poslouchám Váš byznys, ne copy-paste šablonu',
+            body: `
+                <p>Před každým webem se sedneme aspoň na půl hodiny (online nebo naživo, jak chcete). Ptám se na Váš byznys, co od webu čekáte, jaké weby se Vám líbí, jaké barvy preferujete.</p>
+                <p>Podle toho si připravím prompt pro AI. Ne náhodnou šablonu, ale web šitý přesně Vám.</p>
+                <p>Fitness trenér potřebuje jiný web než účetní kancelář. A to není jen o barvách.</p>
+            `
+        },
+        4: {
+            number: '04',
+            title: 'Hotovo za týden, ne za měsíc – bez prémiové ceny',
+            body: `
+                <p>AI mi umožňuje vytvořit web rychleji než klasickým vývojem. Ale nejde jen o rychlost – jde o to, že neplatíte za desítky hodin kódování, které dnes AI zvládne efektivněji.</p>
+                <p>Dostanete profesionální výsledek za zlomek tradiční ceny. A protože mám technické i marketingové zázemí, nemusíte pak platit dalšího specialistu na analytics nebo SEO.</p>
+            `
+        }
+    };
+
+    // Open modal on card click
+    benefitCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const benefitId = card.getAttribute('data-benefit');
+            const data = benefitData[benefitId];
+
+            if (data) {
+                modalNumber.textContent = data.number;
+                modalTitle.textContent = data.title;
+                modalBody.innerHTML = data.body;
+                modal.classList.add('visible');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    // Close modal functions
+    function closeModal() {
+        modal.classList.remove('visible');
+        document.body.style.overflow = '';
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', closeModal);
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('visible')) {
+            closeModal();
+        }
+    });
+}

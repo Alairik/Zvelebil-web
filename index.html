@@ -160,56 +160,36 @@
                 <p class="section-subtitle reveal">Nejsem jen kodér. Jsem marketér, který rozumí webům.</p>
             </div>
             <div class="benefits-grid">
-                <details class="benefit-card reveal">
-                    <summary class="benefit-summary">
-                        <div class="benefit-number">01</div>
-                        <h3>SEO ready, tracking ready, funguje od startu</h3>
-                        <span class="benefit-expand">+</span>
-                    </summary>
-                    <div class="benefit-detail">
-                        <p>V základu Vám nastavím Google Analytics a GTM, abyste od prvního dne viděli, kdo na web chodí a co tam dělá.</p>
-                        <p>Struktura webu, meta tagy, rychlost načítání, mobile-first – to všechno řeším hned při vytváření. Ne až když zjistíte, že Vás Google nenajde.</p>
-                        <p>Tracking pro Meta nebo Google Ads? Podle domluvy. Ale základy máte pokryté.</p>
-                    </div>
-                </details>
-                <details class="benefit-card reveal delay-1">
-                    <summary class="benefit-summary">
-                        <div class="benefit-number">02</div>
-                        <h3>10+ let v oboru, ne absolvent AI kurzu</h3>
-                        <span class="benefit-expand">+</span>
-                    </summary>
-                    <div class="benefit-detail">
-                        <p>Začínal jsem jako projekťák webových a e-shopových projektů. Osahal jsem WordPress, Shopify, PrestaShop i lokální krabice. Pak 6 let v digitálním marketingu.</p>
-                        <p>Vím, kde jsou nástrahy. Vím, co se může pokazit.</p>
-                        <p>AI používám, abych Vám dodal web rychle a levně – ale s knowhow člověka, co v tom žije denně.</p>
-                    </div>
-                </details>
-                <details class="benefit-card reveal delay-2">
-                    <summary class="benefit-summary">
-                        <div class="benefit-number">03</div>
-                        <h3>Poslouchám Váš byznys, ne copy-paste šablonu</h3>
-                        <span class="benefit-expand">+</span>
-                    </summary>
-                    <div class="benefit-detail">
-                        <p>Před každým webem se sedneme aspoň na půl hodiny (online nebo naživo, jak chcete). Ptám se na Váš byznys, co od webu čekáte, jaké weby se Vám líbí, jaké barvy preferujete.</p>
-                        <p>Podle toho si připravím prompt pro AI. Ne náhodnou šablonu, ale web šitý přesně Vám.</p>
-                        <p>Fitness trenér potřebuje jiný web než účetní kancelář. A to není jen o barvách.</p>
-                    </div>
-                </details>
-                <details class="benefit-card reveal delay-3">
-                    <summary class="benefit-summary">
-                        <div class="benefit-number">04</div>
-                        <h3>Hotovo za týden, ne za měsíc – bez prémiové ceny</h3>
-                        <span class="benefit-expand">+</span>
-                    </summary>
-                    <div class="benefit-detail">
-                        <p>AI mi umožňuje vytvořit web rychleji než klasickým vývojem. Ale nejde jen o rychlost – jde o to, že neplatíte za desítky hodin kódování, které dnes AI zvládne efektivněji.</p>
-                        <p>Dostanete profesionální výsledek za zlomek tradiční ceny. A protože mám technické i marketingové zázemí, nemusíte pak platit dalšího specialistu na analytics nebo SEO.</p>
-                    </div>
-                </details>
+                <div class="benefit-card reveal" data-benefit="1">
+                    <div class="benefit-number">01</div>
+                    <h3>SEO ready, tracking ready, funguje od startu</h3>
+                </div>
+                <div class="benefit-card reveal delay-1" data-benefit="2">
+                    <div class="benefit-number">02</div>
+                    <h3>10+ let v oboru, ne absolvent AI kurzu</h3>
+                </div>
+                <div class="benefit-card reveal delay-2" data-benefit="3">
+                    <div class="benefit-number">03</div>
+                    <h3>Poslouchám Váš byznys, ne copy-paste šablonu</h3>
+                </div>
+                <div class="benefit-card reveal delay-3" data-benefit="4">
+                    <div class="benefit-number">04</div>
+                    <h3>Hotovo za týden, ne za měsíc – bez prémiové ceny</h3>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Benefit Modal -->
+    <div class="benefit-modal" id="benefitModal">
+        <div class="benefit-modal-overlay"></div>
+        <div class="benefit-modal-content">
+            <button class="benefit-modal-close" aria-label="Zavřít">&times;</button>
+            <div class="benefit-modal-number" id="modalNumber">01</div>
+            <h3 class="benefit-modal-title" id="modalTitle"></h3>
+            <div class="benefit-modal-body" id="modalBody"></div>
+        </div>
+    </div>
 
     <!-- Ceník Section -->
     <section class="section pricing" id="cenik">
