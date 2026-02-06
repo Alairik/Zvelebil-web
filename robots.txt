@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zvelebil.online/sitemap.xml
