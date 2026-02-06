@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#1a1a2e"/>
+
+  <!-- zvelebil -->
+  <text x="80" y="180" font-family="Arial, sans-serif" font-weight="bold" font-size="90" fill="#ffffff">zvelebil</text>
+
+  <!-- .online -->
+  <text x="80" y="280" font-family="Arial, sans-serif" font-weight="bold" font-size="90" fill="#e87a1e">.online</text>
+
+  <!-- Moderní weby -->
+  <text x="80" y="420" font-family="Arial, sans-serif" font-weight="bold" font-size="72" fill="#ffffff">Moderní weby</text>
+
+  <!-- rychle a levně -->
+  <text x="80" y="520" font-family="Arial, sans-serif" font-weight="500" font-style="italic" font-size="72" fill="#e87a1e">rychle a levně</text>
+</svg>
