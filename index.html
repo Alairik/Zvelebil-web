@@ -289,7 +289,9 @@
                         <p>Popište mi váš projekt nebo nápad a já se vám ozvu s možnostmi spolupráce. Konzultace je nezávazná a zdarma.</p>
                     </div>
                 </div>
-                <form class="contact-form reveal delay-1" id="contactForm">
+                <form class="contact-form reveal delay-1" id="contactForm" action="send-mail.php" method="POST">
+                    <!-- Honeypot - ochrana proti spamu (skryté pole) -->
+                    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                     <div class="form-group">
                         <label for="name">Jméno</label>
                         <input type="text" id="name" name="name" required>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Děkuji za zprávu | Zvelebil.online</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">zvelebil<span>.online</span></a>
+        </div>
+    </nav>
+
+    <section class="thank-you-section">
+        <div class="container">
+            <div class="thank-you-content">
+                <div class="thank-you-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h1>Děkuji za zprávu!</h1>
+                <p>Vaše zpráva byla úspěšně odeslána. Ozvu se vám co nejdříve, obvykle do 24 hodin.</p>
+                <a href="index.html" class="btn btn-primary">Zpět na hlavní stránku</a>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .thank-you-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            padding: var(--spacing-xl);
+        }
+
+        .thank-you-content {
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .thank-you-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-bronze) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--spacing-lg);
+            animation: scaleIn 0.5s ease;
+        }
+
+        .thank-you-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+        }
+
+        .thank-you-content h1 {
+            color: var(--color-white);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .thank-you-content p {
+            color: var(--color-gray-300);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+    </style>
+</body>
+</html>

@@ -118,54 +118,44 @@ function initSmoothScroll() {
 
 /**
  * Contact form handling
+ * Pokud má formulář action (PHP), nechá ho odeslat normálně
+ * Pouze přidá loading stav na tlačítko
  */
 function initContactForm() {
     const form = document.getElementById('contactForm');
 
     if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
+        form.addEventListener('submit', function(e) {
             const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
 
-            // Show loading state
-            submitBtn.textContent = 'Odesílám...';
-            submitBtn.disabled = true;
+            // Validace na straně klienta
+            const name = form.querySelector('#name');
+            const email = form.querySelector('#email');
+            const message = form.querySelector('#message');
 
-            // Gather form data
-            const formData = {
-                name: form.querySelector('#name').value,
-                email: form.querySelector('#email').value,
-                message: form.querySelector('#message').value
-            };
+            if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
+                e.preventDefault();
+                showNotification('Vyplňte prosím všechna povinná pole.', 'error');
+                return;
+            }
 
-            // Simulate form submission (replace with actual endpoint)
-            try {
-                // In production, replace this with actual form submission
-                await simulateFormSubmission(formData);
+            // Základní validace emailu
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                e.preventDefault();
+                showNotification('Zadejte prosím platný email.', 'error');
+                return;
+            }
 
-                // Show success message
-                showNotification('Zpráva byla odeslána! Ozvu se vám co nejdříve.', 'success');
-                form.reset();
-            } catch (error) {
-                showNotification('Něco se pokazilo. Zkuste to prosím znovu.', 'error');
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
+            // Pokud má formulář action, nechá odeslat na PHP
+            // Zobrazí pouze loading stav
+            if (form.getAttribute('action')) {
+                submitBtn.textContent = 'Odesílám...';
+                submitBtn.disabled = true;
+                // Formulář se odešle normálně na PHP
             }
         });
     }
-}
-
-/**
- * Simulate form submission (replace with actual API call)
- */
-function simulateFormSubmission(data) {
-    return new Promise((resolve) => {
-        console.log('Form data:', data);
-        setTimeout(resolve, 1500);
-    });
 }
 
 /**
