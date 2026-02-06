@@ -999,6 +999,15 @@ ul, ol {
 }
 
 @media (max-width: 768px) {
+    .nav-container {
+        justify-content: center;
+    }
+
+    .logo {
+        position: absolute;
+        left: var(--spacing-md);
+    }
+
     .nav-toggle {
         display: flex;
     }
