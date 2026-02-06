@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Stránka nenalezena | Zvelebil.online</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar scrolled" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">zvelebil<span>.online</span></a>
+        </div>
+    </nav>
+
+    <section class="error-section">
+        <div class="container">
+            <div class="error-content">
+                <div class="error-code">404</div>
+                <h1>Stránka nenalezena</h1>
+                <p>Omlouváme se, ale stránka, kterou hledáte, neexistuje nebo byla přesunuta.</p>
+                <div class="error-actions">
+                    <a href="index.html" class="btn btn-primary">Zpět na hlavní stránku</a>
+                    <a href="pages/kontakt.html" class="btn btn-secondary">Kontaktujte mě</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .error-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            padding: var(--spacing-xl);
+            text-align: center;
+        }
+
+        .error-content {
+            max-width: 500px;
+        }
+
+        .error-code {
+            font-family: var(--font-heading);
+            font-size: clamp(6rem, 20vw, 10rem);
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .error-content h1 {
+            color: var(--color-white);
+            font-size: 2rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .error-content p {
+            color: var(--color-gray-300);
+            font-size: 1.1rem;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .error-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</body>
+</html>
