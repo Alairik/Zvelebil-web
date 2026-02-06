@@ -69,8 +69,8 @@ function initScrollReveal() {
 
     const revealOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: 0.15
+        rootMargin: '0px 0px 150px 0px',
+        threshold: 0.1
     };
 
     const revealCallback = (entries, observer) => {
