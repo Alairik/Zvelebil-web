@@ -450,6 +450,25 @@ ul, ol {
     margin: var(--spacing-md) auto 0;
 }
 
+.section-cta {
+    text-align: center;
+    margin-top: var(--spacing-xl);
+}
+
+.about-cta {
+    margin-top: var(--spacing-lg);
+}
+
+.btn-light {
+    border-color: var(--color-white);
+    color: var(--color-white);
+}
+
+.btn-light:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
 /* --- Services Section --- */
 .services {
     background: var(--color-off-white);

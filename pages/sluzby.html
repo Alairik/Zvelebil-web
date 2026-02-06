@@ -31,21 +31,23 @@
     <nav class="navbar scrolled" id="navbar">
         <div class="nav-container">
             <a href="../index.html" class="logo">zvelebil<span>.online</span></a>
-            <button class="nav-toggle" id="navToggle" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="sluzby.html" class="active">Služby</a></li>
-                <li><a href="../index.html#proc-ja">Proč já</a></li>
+                <li><a href="proc-ja.html">Proč já</a></li>
                 <li><a href="cenik.html">Ceník</a></li>
-                <li><a href="../index.html#reference">Reference</a></li>
+                <li><a href="jak-to-funguje.html">Jak to funguje</a></li>
                 <li><a href="o-mne.html">O mně</a></li>
-                <li><a href="kontakt.html" class="nav-cta">Napište mi</a></li>
+                <li><a href="#" class="nav-cta" data-contact-modal>Napište mi</a></li>
             </ul>
         </div>
     </nav>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 
     <!-- Page Header -->
     <header class="page-header">
@@ -168,10 +170,36 @@
             <div class="cta-content reveal">
                 <h2>Máte zájem o spolupráci?</h2>
                 <p>Napište mi a nezávazně probereme Váš projekt.</p>
-                <a href="kontakt.html" class="btn btn-primary">Napište mi</a>
+                <button class="btn btn-primary" data-contact-modal>Napište mi</button>
             </div>
         </div>
     </section>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contactModal">
+        <div class="contact-modal-overlay"></div>
+        <div class="contact-modal-content">
+            <button class="contact-modal-close" aria-label="Zavřít">&times;</button>
+            <h2>Napište mi</h2>
+            <p>Popište mi Váš projekt a já se Vám ozvu.</p>
+            <form class="contact-modal-form" id="contactModalForm" action="../send-mail.php" method="POST">
+                <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+                <div class="form-group">
+                    <label for="modal-name">Jméno</label>
+                    <input type="text" id="modal-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-email">Email</label>
+                    <input type="email" id="modal-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="modal-message">Zpráva</label>
+                    <textarea id="modal-message" name="message" rows="4" required placeholder="Popište Váš projekt nebo nápad..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full">Odeslat zprávu</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -195,6 +223,39 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+        // Contact Modal functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('contactModal');
+            if (!modal) return;
+
+            const triggers = document.querySelectorAll('[data-contact-modal]');
+            const closeBtn = modal.querySelector('.contact-modal-close');
+            const overlay = modal.querySelector('.contact-modal-overlay');
+
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('visible');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            function closeModal() {
+                modal.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('visible')) {
+                    closeModal();
+                }
+            });
+        });
+    </script>
 
     <style>
         /* Page-specific styles */
@@ -428,6 +489,89 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+        }
+
+        /* Contact Modal */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .contact-modal.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .contact-modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        .contact-modal-content {
+            position: relative;
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-modal.visible .contact-modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .contact-modal-close {
+            position: absolute;
+            top: var(--spacing-md);
+            right: var(--spacing-md);
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--color-gray-100);
+            border-radius: var(--radius-full);
+            font-size: 1.5rem;
+            color: var(--color-gray-500);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+            line-height: 1;
+        }
+
+        .contact-modal-close:hover {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .contact-modal-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .contact-modal-content > p {
+            color: var(--color-gray-500);
+            margin-bottom: var(--spacing-lg);
         }
     </style>
 </body>
