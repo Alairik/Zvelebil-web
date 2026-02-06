@@ -1334,3 +1334,59 @@ ul, ol {
         width: 100%;
     }
 }
+
+/* Floating Cookie Settings Button */
+#cookie-settings-fab {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    border: none;
+    cursor: pointer;
+    box-shadow: var(--shadow-md);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 0;
+}
+
+#cookie-settings-fab.visible {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+#cookie-settings-fab:hover {
+    transform: scale(1.1) translateY(0);
+    box-shadow: var(--shadow-glow);
+}
+
+#cookie-settings-fab:active {
+    transform: scale(0.95) translateY(0);
+}
+
+#cookie-settings-fab svg {
+    width: 26px;
+    height: 26px;
+    color: var(--color-white);
+}
+
+@media (max-width: 768px) {
+    #cookie-settings-fab {
+        width: 44px;
+        height: 44px;
+        bottom: 15px;
+        left: 15px;
+    }
+
+    #cookie-settings-fab svg {
+        width: 22px;
+        height: 22px;
+    }
+}

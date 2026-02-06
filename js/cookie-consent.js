@@ -84,6 +84,54 @@
         return null;
     }
 
+    // Vytvoření plovoucího tlačítka pro nastavení cookies
+    function createFloatingButton() {
+        if (document.getElementById('cookie-settings-fab')) return;
+
+        const fab = document.createElement('button');
+        fab.id = 'cookie-settings-fab';
+        fab.setAttribute('aria-label', 'Nastavení cookies');
+        fab.setAttribute('title', 'Nastavení cookies');
+        fab.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="8" cy="9" r="1.5" fill="currentColor"></circle>
+                <circle cx="15" cy="8" r="1" fill="currentColor"></circle>
+                <circle cx="16" cy="14" r="1.5" fill="currentColor"></circle>
+                <circle cx="10" cy="15" r="1" fill="currentColor"></circle>
+                <circle cx="12" cy="11" r="1" fill="currentColor"></circle>
+            </svg>
+        `;
+        fab.addEventListener('click', function() {
+            window.openCookieSettings();
+            hideFloatingButton();
+        });
+        document.body.appendChild(fab);
+
+        // Animace zobrazení
+        requestAnimationFrame(() => {
+            fab.classList.add('visible');
+        });
+    }
+
+    // Skrytí plovoucího tlačítka
+    function hideFloatingButton() {
+        const fab = document.getElementById('cookie-settings-fab');
+        if (fab) {
+            fab.classList.remove('visible');
+        }
+    }
+
+    // Zobrazení plovoucího tlačítka
+    function showFloatingButton() {
+        const fab = document.getElementById('cookie-settings-fab');
+        if (fab) {
+            fab.classList.add('visible');
+        } else {
+            createFloatingButton();
+        }
+    }
+
     // Vytvoření HTML cookie banneru
     function createBanner() {
         const banner = document.createElement('div');
@@ -164,6 +212,8 @@
         if (banner) {
             banner.classList.remove('visible');
         }
+        // Zobrazit plovoucí tlačítko po skrytí banneru
+        setTimeout(showFloatingButton, 300);
     }
 
     // Nastavení event listenerů
@@ -257,6 +307,12 @@
         if (existingConsent) {
             // Uživatel už dal souhlas - aplikovat jeho nastavení
             updateGTMConsent(existingConsent);
+            // Zobrazit plovoucí tlačítko pro změnu nastavení
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', createFloatingButton);
+            } else {
+                createFloatingButton();
+            }
         } else {
             // Nový uživatel - zobrazit banner
             if (document.readyState === 'loading') {
