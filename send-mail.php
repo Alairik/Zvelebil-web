@@ -59,7 +59,7 @@ $headers .= "X-Mailer: PHP/" . phpversion();
 // Odeslání
 if (mail($to, $subject, $body, $headers)) {
     // Úspěch - přesměrování s parametrem
-    header("Location: kontakt-dekuji.html");
+    header("Location: pages/kontakt-dekuji.html");
     exit;
 } else {
     // Chyba
