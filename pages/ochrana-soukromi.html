@@ -2,6 +2,8 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <!-- Cookie Consent - MUSÍ být před GTM -->
+    <script src="../js/cookie-consent.js"></script>
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -123,8 +125,30 @@
                         </tbody>
                     </table>
 
-                    <h3>3.3 Správa cookies</h3>
-                    <p>Svůj souhlas s cookies můžete kdykoliv změnit v nastavení vašeho prohlížeče nebo pomocí cookie lišty, která se zobrazí při návštěvě webu.</p>
+                    <h3>3.3 Marketingové cookies</h3>
+                    <p>Pro cílenou reklamu využíváme marketingové cookies. Tyto cookies se aktivují pouze s vaším souhlasem.</p>
+                    <table class="cookie-table">
+                        <thead>
+                            <tr>
+                                <th>Cookie</th>
+                                <th>Poskytovatel</th>
+                                <th>Účel</th>
+                                <th>Expirace</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>_fbp</td>
+                                <td>Meta (Facebook)</td>
+                                <td>Sledování konverzí a remarketing</td>
+                                <td>90 dní</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>3.4 Správa cookies</h3>
+                    <p>Svůj souhlas s cookies můžete kdykoliv změnit pomocí tlačítka níže nebo v nastavení vašeho prohlížeče.</p>
+                    <button class="btn btn-secondary" onclick="openCookieSettings()" style="margin-top: var(--spacing-sm);">Nastavení cookies</button>
                 </div>
 
                 <div class="privacy-section reveal">
@@ -153,6 +177,7 @@
                     <p>Vaše údaje mohou být předány následujícím příjemcům:</p>
                     <ul>
                         <li><strong>Google LLC</strong> – provozovatel služeb Google Analytics a Google Tag Manager (data jsou zpracovávána v EU)</li>
+                        <li><strong>Meta Platforms, Inc.</strong> – provozovatel Meta Pixel pro marketingové účely (pouze se souhlasem)</li>
                         <li><strong>Wedos Internet, a.s.</strong> – poskytovatel webhostingu</li>
                     </ul>
                 </div>
