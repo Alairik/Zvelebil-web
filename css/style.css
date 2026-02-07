@@ -288,6 +288,27 @@ ul, ol {
     transition: all var(--transition-base);
 }
 
+/* --- Page Header (for subpages) --- */
+.page-header {
+    background: var(--gradient-hero);
+    padding-top: 120px;
+    padding-bottom: var(--spacing-xl);
+    text-align: center;
+}
+
+.page-header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-white);
+}
+
+.page-subtitle {
+    font-size: 1.25rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
 /* --- Hero Section --- */
 .hero {
     position: relative;
