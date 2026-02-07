@@ -288,6 +288,12 @@ ul, ol {
     transition: all var(--transition-base);
 }
 
+/* --- Navbar Spacer (for pages without hero) --- */
+.navbar-spacer {
+    height: 70px;
+    background: var(--color-dark);
+}
+
 /* --- Page Header (for subpages) --- */
 .page-header {
     background: var(--gradient-hero);
