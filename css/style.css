@@ -1069,7 +1069,7 @@ ul, ol {
 .about-photo {
     width: 250px;
     height: 250px;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-lg);
     object-fit: cover;
     box-shadow: var(--shadow-glow);
 }
