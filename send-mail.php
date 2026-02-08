@@ -56,9 +56,32 @@ $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 $headers .= "X-Mailer: PHP/" . phpversion();
 
-// Odeslání
-if (mail($to, $subject, $body, $headers)) {
-    // Úspěch - přesměrování s parametrem
+// Odeslání hlavního emailu (vám)
+$mailSent = mail($to, $subject, $body, $headers);
+
+// Potvrzovací email odesilateli
+if ($mailSent) {
+    $confirmSubject = "=?UTF-8?B?" . base64_encode("Děkuji za Vaši zprávu | zvelebil.online") . "?=";
+
+    $confirmBody = "Dobrý den, $jmeno,\n\n";
+    $confirmBody .= "děkuji za Vaši zprávu. Obdržel jsem ji a ozvu se Vám co nejdříve, obvykle do 24 hodin.\n\n";
+    $confirmBody .= "Pro připomenutí, zde je kopie Vaší zprávy:\n";
+    $confirmBody .= "--------------------------------\n";
+    $confirmBody .= "$zprava\n";
+    $confirmBody .= "--------------------------------\n\n";
+    $confirmBody .= "S pozdravem,\n";
+    $confirmBody .= "Petr Zvelebil\n";
+    $confirmBody .= "zvelebil.online\n";
+
+    $confirmHeaders = "From: info@zvelebil.online\r\n";
+    $confirmHeaders .= "Reply-To: info@zvelebil.online\r\n";
+    $confirmHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
+    $confirmHeaders .= "X-Mailer: PHP/" . phpversion();
+
+    // Odeslání potvrzení (neřešíme chybu - hlavní email už odešel)
+    mail($email, $confirmSubject, $confirmBody, $confirmHeaders);
+
+    // Úspěch - přesměrování
     header("Location: pages/kontakt-dekuji.html");
     exit;
 } else {
