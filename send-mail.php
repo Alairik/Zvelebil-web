@@ -21,6 +21,11 @@ if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) {
     die("Zadejte prosím platný email.");
 }
 
+// Validace GDPR souhlasu
+if (empty($_POST["gdpr_consent"])) {
+    die("Pro odeslání formuláře musíte souhlasit se zpracováním osobních údajů.");
+}
+
 // Sanitizace dat
 $jmeno = htmlspecialchars(trim($_POST["name"]), ENT_QUOTES, 'UTF-8');
 $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
