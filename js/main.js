@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initParallax();
     initBenefitModal();
+    initSpamProtection();
 });
 
 /**
@@ -387,5 +388,17 @@ function initBenefitModal() {
         if (e.key === 'Escape' && modal.classList.contains('visible')) {
             closeModal();
         }
+    });
+}
+
+/**
+ * Spam protection - sets timestamp on all forms for time-based validation
+ */
+function initSpamProtection() {
+    const now = Date.now().toString();
+
+    // Set timestamp on all forms that have the _timestamp field
+    document.querySelectorAll('input[name="_timestamp"]').forEach(input => {
+        input.value = now;
     });
 }
