@@ -5,9 +5,32 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     exit;
 }
 
-// Honeypot - ochrana proti spamu (skryté pole v formuláři)
-if (!empty($_POST["website"])) {
+// Honeypot - ochrana proti spamu (skrytá pole v formuláři)
+if (!empty($_POST["website"]) || !empty($_POST["company"])) {
     // Bot vyplnil honeypot pole
+    http_response_code(403);
+    die("Spam detekován.");
+}
+
+// Časová kontrola - formulář odeslaný příliš rychle je pravděpodobně bot
+if (!empty($_POST["_timestamp"])) {
+    $submitTime = intval($_POST["_timestamp"]);
+    $now = round(microtime(true) * 1000); // aktuální čas v ms
+    $elapsed = $now - $submitTime;
+
+    // Méně než 3 sekundy = pravděpodobně bot
+    if ($elapsed < 3000) {
+        http_response_code(403);
+        die("Spam detekován.");
+    }
+
+    // Více než 1 hodina = pravděpodobně replay útok nebo stará stránka
+    if ($elapsed > 3600000) {
+        die("Formulář vypršel. Obnovte prosím stránku a zkuste to znovu.");
+    }
+} else {
+    // Chybí timestamp = pravděpodobně přímý POST bez JS
+    http_response_code(403);
     die("Spam detekován.");
 }
 

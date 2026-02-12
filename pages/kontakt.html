@@ -93,8 +93,12 @@
 
                 <div class="contact-form-wrapper reveal delay-1">
                     <form class="contact-form-page" id="contactForm" action="../send-mail.php" method="POST">
-                        <!-- Honeypot - ochrana proti spamu (skryté pole) -->
+                        <!-- Honeypot - ochrana proti spamu (skrytá pole) -->
                         <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+                        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                            <input type="text" name="company" tabindex="-1" autocomplete="off">
+                        </div>
+                        <input type="hidden" name="_timestamp" value="">
                         <div class="form-group">
                             <label for="name">Jméno *</label>
                             <input type="text" id="name" name="name" required placeholder="Vaše jméno">

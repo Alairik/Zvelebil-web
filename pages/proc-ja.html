@@ -148,6 +148,10 @@
             <p>Popište mi Váš projekt a já se Vám ozvu.</p>
             <form class="contact-modal-form" id="contactModalForm" action="../send-mail.php" method="POST">
                 <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
+                <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                    <input type="text" name="company" tabindex="-1" autocomplete="off">
+                </div>
+                <input type="hidden" name="_timestamp" value="">
                 <div class="form-group">
                     <label for="modal-name">Jméno</label>
                     <input type="text" id="modal-name" name="name" required>
