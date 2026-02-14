@@ -163,7 +163,7 @@ if (!empty($created)) {
     <!-- Article Header -->
     <header class="article-header">
         <div class="container">
-            <div class="article-header-content">
+            <div class="article-header-content<?= empty($image) ? ' no-image' : '' ?>">
 <?php if (!empty($image)): ?>
                 <div class="article-featured-image">
                     <img src="<?= htmlspecialchars($image, ENT_QUOTES, 'UTF-8') ?>" alt="<?= $title ?>">

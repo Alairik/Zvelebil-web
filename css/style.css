@@ -1935,6 +1935,7 @@ ul, ol {
     margin-bottom: var(--spacing-sm);
     line-height: 1.4;
     transition: color var(--transition-fast);
+    color: var(--color-dark);
 }
 
 .blog-card:hover .blog-card-content h3 {
@@ -2094,6 +2095,11 @@ ul, ol {
     grid-template-columns: 400px 1fr;
     gap: var(--spacing-2xl);
     align-items: start;
+}
+
+.article-header-content.no-image {
+    grid-template-columns: 1fr;
+    max-width: 800px;
 }
 
 .article-featured-image {
