@@ -1,15 +1,25 @@
 <?php
 $pageTitle = 'Články';
-require_once __DIR__ . '/includes/header.php';
+
+// Load dependencies before any HTML output
+require_once dirname(__DIR__) . '/includes/config.php';
+require_once INCLUDES_PATH . '/db.php';
+require_once INCLUDES_PATH . '/auth.php';
+require_once INCLUDES_PATH . '/helpers.php';
+require_once INCLUDES_PATH . '/articles.php';
+require_once INCLUDES_PATH . '/categories.php';
+auth_start_session();
 auth_require();
 
-// Handle delete
+// Handle delete before HTML output so redirect works
 if (isset($_GET['delete']) && csrf_verify()) {
     $id = (int) $_GET['delete'];
     article_delete($id);
     flash_set('success', 'Článek byl smazán.');
     redirect(ADMIN_URL . '/articles.php');
 }
+
+require_once __DIR__ . '/includes/header.php';
 
 // Filters
 $status = $_GET['status'] ?? null;

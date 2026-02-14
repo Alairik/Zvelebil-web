@@ -1,20 +1,27 @@
 <?php
 $pageTitle = 'Úprava článku';
-require_once __DIR__ . '/includes/header.php';
+
+// Load dependencies before any HTML output
+require_once dirname(__DIR__) . '/includes/config.php';
+require_once INCLUDES_PATH . '/db.php';
+require_once INCLUDES_PATH . '/auth.php';
+require_once INCLUDES_PATH . '/helpers.php';
+require_once INCLUDES_PATH . '/articles.php';
+require_once INCLUDES_PATH . '/categories.php';
+auth_start_session();
 auth_require();
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 $article = $id ? article_get($id) : null;
-$allCategories = categories_list();
-$allTags = tags_list();
-$articleTags = $id ? array_column(article_get_tags($id), 'id') : [];
 
+// Handle POST before HTML output so redirects work
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!csrf_verify()) {
         flash_set('error', 'Neplatný bezpečnostní token.');
         redirect(ADMIN_URL . '/article-edit.php' . ($id ? "?id={$id}" : ''));
     }
 
+    $currentUser = auth_user();
     $data = [
         'id' => $id,
         'title' => trim($_POST['title'] ?? ''),
@@ -52,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $savedId = article_save($data);
         flash_set('success', $id ? 'Článek byl upraven.' : 'Článek byl vytvořen.');
-        redirect(ADMIN_URL . '/article-edit.php?id=' . $savedId);
+        redirect(ADMIN_URL . '/articles.php');
     }
 }
 
@@ -61,6 +68,13 @@ if ($id && !$article) {
     flash_set('error', 'Článek nebyl nalezen.');
     redirect(ADMIN_URL . '/articles.php');
 }
+
+// Now include header (outputs HTML)
+require_once __DIR__ . '/includes/header.php';
+
+$allCategories = categories_list();
+$allTags = tags_list();
+$articleTags = $id ? array_column(article_get_tags($id), 'id') : [];
 ?>
 
 <h1><?= $id ? 'Upravit článek' : 'Nový článek' ?></h1>
