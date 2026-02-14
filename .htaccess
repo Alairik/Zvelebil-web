@@ -30,9 +30,17 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/pages/blog/%{REQUEST_URI}.html -f
 RewriteRule ^(.+)$ /blog/$1 [R=301,L]
 
-# Blog article: /blog/slug -> CMS article template
+# Blog article: /blog/slug
+# First try static HTML file, then CMS template
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/pages/blog/%1.html -f
+RewriteRule ^blog/(.+)$ /pages/blog/$1.html [L]
+
+# Blog article: if no static file, use CMS template
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/pages/blog/%1.html !-f
 RewriteRule ^blog/(.+)$ /pages/blog/cms-article.php?article_slug=$1 [L,QSA]
 
 # Rewrite clean URLs to pages/ folder
