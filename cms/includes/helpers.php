@@ -24,7 +24,7 @@ function csrf_field(): string {
 }
 
 function csrf_verify(): bool {
-    $token = $_POST['csrf_token'] ?? '';
+    $token = $_POST['csrf_token'] ?? $_GET['csrf_token'] ?? '';
     return hash_equals($_SESSION['csrf_token'] ?? '', $token);
 }
 
