@@ -2099,7 +2099,6 @@ ul, ol {
 
 .article-header-content.no-image {
     grid-template-columns: 1fr;
-    max-width: 800px;
 }
 
 .article-featured-image {
@@ -2177,6 +2176,11 @@ ul, ol {
     margin: 0 auto;
 }
 
+.article-container.no-sidebar {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+}
+
 /* Table of Contents */
 .article-toc {
     position: sticky;
@@ -2220,6 +2224,10 @@ ul, ol {
 /* Article Content */
 .article-content {
     max-width: 700px;
+}
+
+.no-sidebar .article-content {
+    max-width: 100%;
 }
 
 /* TL;DR Box */

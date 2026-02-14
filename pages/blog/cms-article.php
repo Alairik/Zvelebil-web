@@ -198,7 +198,7 @@ if (!empty($created)) {
     <!-- Article Body -->
     <main class="article-body">
         <div class="container">
-            <div class="article-container">
+            <div class="article-container no-sidebar">
                 <!-- Article Content -->
                 <article class="article-content cms-content">
                     <?= $content ?>
