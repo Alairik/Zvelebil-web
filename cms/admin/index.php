@@ -1,7 +1,17 @@
 <?php
 $pageTitle = 'Dashboard';
-require_once __DIR__ . '/includes/header.php';
+
+// Auth check before any HTML output so redirect to login works
+require_once dirname(__DIR__) . '/includes/config.php';
+require_once INCLUDES_PATH . '/db.php';
+require_once INCLUDES_PATH . '/auth.php';
+require_once INCLUDES_PATH . '/helpers.php';
+require_once INCLUDES_PATH . '/articles.php';
+require_once INCLUDES_PATH . '/categories.php';
+auth_start_session();
 auth_require();
+
+require_once __DIR__ . '/includes/header.php';
 
 $totalArticles = articles_count();
 $publishedArticles = articles_count('published');
