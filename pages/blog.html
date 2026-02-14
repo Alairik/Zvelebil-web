@@ -61,20 +61,12 @@
     <!-- Blog Archive -->
     <section class="section blog-archive">
         <div class="container">
-            <div class="blog-archive-grid">
-                <article class="blog-card reveal">
-                    <a href="/jak-vybrat-spravny-typ-webu-pro-vas-byznys" class="blog-card-link">
-                        <div class="blog-card-image">
-                            <img src="../assets/blog/jak-vybrat-web-thumbnail.svg" alt="Jak vybrat správný typ webu" loading="lazy">
-                        </div>
-                        <div class="blog-card-content">
-                            <span class="blog-card-category">Webdesign</span>
-                            <h3>Jak vybrat správný typ webu pro Váš byznys</h3>
-                            <p>Jednostránkový web, nebo vícestránková prezentace? E-shop, nebo katalog? Poradím Vám, jak se rozhodnout.</p>
-                            <span class="blog-card-meta">15. ledna 2025 · 5 min čtení</span>
-                        </div>
-                    </a>
-                </article>
+            <div class="blog-archive-grid" id="blogGrid">
+                <!-- Articles loaded dynamically from CMS -->
+                <div class="blog-loading">Načítám články...</div>
+            </div>
+            <div class="blog-load-more" id="blogLoadMore" style="display:none;">
+                <button class="btn btn-secondary" id="loadMoreBtn">Načíst další články</button>
             </div>
         </div>
     </section>
@@ -101,5 +93,88 @@
     </footer>
 
     <script src="../js/main.js"></script>
+    <script>
+    (function() {
+        const grid = document.getElementById('blogGrid');
+        const loadMoreWrap = document.getElementById('blogLoadMore');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const API_URL = '/cms/api/articles.php';
+        const PER_PAGE = 9;
+        let offset = 0;
+        let total = 0;
+
+        const months = ['ledna','února','března','dubna','května','června',
+                        'července','srpna','září','října','listopadu','prosince'];
+
+        function formatDate(dateStr) {
+            const d = new Date(dateStr);
+            return d.getDate() + '. ' + months[d.getMonth()] + ' ' + d.getFullYear();
+        }
+
+        function createCard(article) {
+            const card = document.createElement('article');
+            card.className = 'blog-card reveal';
+
+            const url = '/blog/' + article.slug;
+            const image = article.featured_image_url
+                ? '<div class="blog-card-image"><img src="' + article.featured_image_url + '" alt="' + article.title.replace(/"/g, '&quot;') + '" loading="lazy"></div>'
+                : '<div class="blog-card-image blog-card-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg></div>';
+
+            const category = article.category_name
+                ? '<span class="blog-card-category">' + article.category_name + '</span>'
+                : '';
+
+            const date = article.created_at ? formatDate(article.created_at) : '';
+
+            card.innerHTML = '<a href="' + url + '" class="blog-card-link">'
+                + image
+                + '<div class="blog-card-content">'
+                + category
+                + '<h3>' + article.title + '</h3>'
+                + '<p>' + (article.excerpt || '') + '</p>'
+                + '<span class="blog-card-meta">' + date + '</span>'
+                + '</div></a>';
+
+            return card;
+        }
+
+        function loadArticles() {
+            fetch(API_URL + '?limit=' + PER_PAGE + '&offset=' + offset)
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    // Remove loading message
+                    var loading = grid.querySelector('.blog-loading');
+                    if (loading) loading.remove();
+
+                    total = data.total || 0;
+                    var articles = data.articles || [];
+
+                    if (articles.length === 0 && offset === 0) {
+                        grid.innerHTML = '<p class="blog-empty">Zatím zde nejsou žádné články. Brzy přidám nový obsah.</p>';
+                        return;
+                    }
+
+                    articles.forEach(function(article) {
+                        grid.appendChild(createCard(article));
+                    });
+
+                    offset += articles.length;
+
+                    if (offset < total) {
+                        loadMoreWrap.style.display = 'block';
+                    } else {
+                        loadMoreWrap.style.display = 'none';
+                    }
+                })
+                .catch(function() {
+                    var loading = grid.querySelector('.blog-loading');
+                    if (loading) loading.textContent = 'Články se nepodařilo načíst.';
+                });
+        }
+
+        loadMoreBtn.addEventListener('click', loadArticles);
+        loadArticles();
+    })();
+    </script>
 </body>
 </html>

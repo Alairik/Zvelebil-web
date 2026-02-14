@@ -6,12 +6,34 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)/$ /$1 [R=301,L]
 
-# Rewrite clean URLs for blog articles
-# /jak-vybrat-spravny-typ-webu -> /pages/blog/jak-vybrat-spravny-typ-webu.html
+# Redirect old URLs with pages/blog/ to /blog/slug
+RewriteCond %{THE_REQUEST} /pages/blog/([^.]+)\.html [NC]
+RewriteRule ^ /blog/%1 [R=301,L]
+
+# Redirect old URLs with pages/ to clean URLs
+RewriteCond %{THE_REQUEST} /pages/([^.]+)\.html [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Prevent direct access to .html files in pages/
+RewriteCond %{THE_REQUEST} \.html [NC]
+RewriteCond %{REQUEST_URI} ^/pages/ [NC]
+RewriteRule ^pages/blog/(.+)\.html$ /blog/$1 [R=301,L]
+
+RewriteCond %{THE_REQUEST} \.html [NC]
+RewriteCond %{REQUEST_URI} ^/pages/ [NC]
+RewriteRule ^pages/(.+)\.html$ /$1 [R=301,L]
+
+# Redirect old root-level article URLs to /blog/slug
+# (for articles that were previously at /jak-vybrat-spravny-typ-webu-pro-vas-byznys)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/pages/blog/%{REQUEST_URI}.html -f
-RewriteRule ^(.+)$ /pages/blog/$1.html [L]
+RewriteRule ^(.+)$ /blog/$1 [R=301,L]
+
+# Blog article: /blog/slug -> CMS article template
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/(.+)$ /pages/blog/cms-article.php?article_slug=$1 [L,QSA]
 
 # Rewrite clean URLs to pages/ folder
 # /proc-ja -> /pages/proc-ja.html
@@ -19,21 +41,3 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{DOCUMENT_ROOT}/pages/%{REQUEST_URI}.html -f
 RewriteRule ^(.+)$ /pages/$1.html [L]
-
-# Redirect old URLs with pages/blog/ to clean URLs
-RewriteCond %{THE_REQUEST} /pages/blog/([^.]+)\.html [NC]
-RewriteRule ^ /%1 [R=301,L]
-
-# Redirect old URLs with pages/ to clean URLs
-RewriteCond %{THE_REQUEST} /pages/([^.]+)\.html [NC]
-RewriteRule ^ /%1 [R=301,L]
-
-# Prevent direct access to .html files in pages/blog/
-RewriteCond %{THE_REQUEST} \.html [NC]
-RewriteCond %{REQUEST_URI} ^/pages/blog/ [NC]
-RewriteRule ^pages/blog/(.+)\.html$ /$1 [R=301,L]
-
-# Prevent direct access to .html files in pages/
-RewriteCond %{THE_REQUEST} \.html [NC]
-RewriteCond %{REQUEST_URI} ^/pages/ [NC]
-RewriteRule ^pages/(.+)\.html$ /$1 [R=301,L]
