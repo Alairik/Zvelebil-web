@@ -12,13 +12,13 @@ if (empty($slug)) {
 }
 
 // Fetch article from CMS API
-$apiUrl = 'https://zvelebil.online/cms/api/articles.php?slug=' . urlencode($slug);
+$apiUrl = 'https://zvelebil.online/CMS/api/articles.php?slug=' . urlencode($slug);
 $context = stream_context_create(['http' => ['timeout' => 5]]);
 $json = @file_get_contents($apiUrl, false, $context);
 
 if ($json === false) {
     // Fallback: try local API
-    $apiUrl = 'http://localhost/cms/api/articles.php?slug=' . urlencode($slug);
+    $apiUrl = 'http://localhost/CMS/api/articles.php?slug=' . urlencode($slug);
     $json = @file_get_contents($apiUrl, false, $context);
 }
 
