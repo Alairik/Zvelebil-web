@@ -28,7 +28,7 @@ if (!empty($_GET['slug'])) {
         exit;
     }
     $article['tags'] = article_get_tags($article['id']);
-    $article['url'] = SITE_URL . '/clanek/' . $article['slug'];
+    $article['url'] = '/blog/' . $article['slug'];
     echo json_encode($article, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -49,7 +49,7 @@ $total = articles_count('published', $categoryId);
 $articles = articles_list($limit, $offset, 'published', $categoryId);
 
 foreach ($articles as &$a) {
-    $a['url'] = SITE_URL . '/clanek/' . $a['slug'];
+    $a['url'] = '/blog/' . $a['slug'];
     if (!empty($a['featured_image'])) {
         $a['featured_image_url'] = UPLOADS_URL . '/' . $a['featured_image'];
     }

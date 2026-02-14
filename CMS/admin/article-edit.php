@@ -149,7 +149,7 @@ if ($id && !$article) {
         <button type="submit" class="btn btn-primary">Uložit</button>
         <a href="<?= ADMIN_URL ?>/articles.php" class="btn btn-secondary">Zpět na seznam</a>
         <?php if ($id && ($article['status'] ?? '') === 'published'): ?>
-            <a href="<?= SITE_URL ?>/clanek/<?= h($article['slug']) ?>" class="btn btn-success" target="_blank">Zobrazit na webu</a>
+            <a href="/blog/<?= h($article['slug']) ?>" class="btn btn-success" target="_blank">Zobrazit na webu</a>
         <?php endif; ?>
     </div>
 </form>

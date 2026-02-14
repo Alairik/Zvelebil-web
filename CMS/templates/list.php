@@ -14,12 +14,12 @@
     <?php foreach ($articles as $article): ?>
     <article class="article-card">
         <?php if (!empty($article['featured_image'])): ?>
-            <a href="<?= SITE_URL ?>/clanek/<?= h($article['slug']) ?>">
+            <a href="/blog/<?= h($article['slug']) ?>">
                 <img src="<?= UPLOADS_URL . '/' . h($article['featured_image']) ?>" alt="<?= h($article['title']) ?>" class="article-card-image">
             </a>
         <?php endif; ?>
         <div class="article-card-body">
-            <h2><a href="<?= SITE_URL ?>/clanek/<?= h($article['slug']) ?>"><?= h($article['title']) ?></a></h2>
+            <h2><a href="/blog/<?= h($article['slug']) ?>"><?= h($article['title']) ?></a></h2>
             <div class="article-meta">
                 <span><?= format_date($article['created_at']) ?></span>
                 <span><?= h($article['author_name']) ?></span>
@@ -28,7 +28,7 @@
                 <?php endif; ?>
             </div>
             <p class="article-excerpt"><?= h($article['excerpt'] ?: excerpt($article['content'])) ?></p>
-            <p style="margin-top: .8rem;"><a href="<?= SITE_URL ?>/clanek/<?= h($article['slug']) ?>">Číst dále &rarr;</a></p>
+            <p style="margin-top: .8rem;"><a href="/blog/<?= h($article['slug']) ?>">Číst dále &rarr;</a></p>
         </div>
     </article>
     <?php endforeach; ?>
