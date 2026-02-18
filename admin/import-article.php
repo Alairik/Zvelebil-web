@@ -6,9 +6,9 @@
  * Použití: https://zvelebil.online/cms/import-article.php
  */
 
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/db.php';
-require_once __DIR__ . '/includes/helpers.php';
+require_once __DIR__ . '/lib/config.php';
+require_once __DIR__ . '/lib/db.php';
+require_once __DIR__ . '/lib/helpers.php';
 
 $db = db_connect();
 

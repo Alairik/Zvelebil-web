@@ -12,13 +12,12 @@ define('DB_CHARSET', 'utf8mb4');
 
 // Paths
 define('BASE_PATH', dirname(__DIR__));
-define('INCLUDES_PATH', BASE_PATH . '/includes');
+define('INCLUDES_PATH', BASE_PATH . '/lib');
 define('UPLOADS_PATH', BASE_PATH . '/uploads');
-define('ADMIN_PATH', BASE_PATH . '/admin');
 
 // URL - adjust to your domain
-define('SITE_URL', 'https://zvelebil.online/cms');
-define('ADMIN_URL', SITE_URL . '/admin');
+define('SITE_URL', 'https://zvelebil.online/admin');
+define('ADMIN_URL', SITE_URL);
 define('UPLOADS_URL', SITE_URL . '/uploads');
 
 // Site

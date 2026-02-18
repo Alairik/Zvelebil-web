@@ -2,7 +2,7 @@
 $pageTitle = 'Dashboard';
 
 // Auth check before any HTML output so redirect to login works
-require_once dirname(__DIR__) . '/includes/config.php';
+require_once __DIR__ . '/lib/config.php';
 require_once INCLUDES_PATH . '/db.php';
 require_once INCLUDES_PATH . '/auth.php';
 require_once INCLUDES_PATH . '/helpers.php';
