@@ -11,9 +11,9 @@ require_once INCLUDES_PATH . '/categories.php';
 auth_start_session();
 auth_require();
 
-// Handle delete before HTML output so redirect works
-if (isset($_GET['delete']) && csrf_verify()) {
-    $id = (int) $_GET['delete'];
+// Handle delete (POST only for security)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete']) && csrf_verify()) {
+    $id = (int) $_POST['delete'];
     article_delete($id);
     flash_set('success', 'Článek byl smazán.');
     redirect(ADMIN_URL . '/articles.php');
@@ -76,9 +76,11 @@ $allCategories = categories_list();
                     <td><?= format_date($article['created_at']) ?></td>
                     <td>
                         <a href="<?= ADMIN_URL ?>/article-edit.php?id=<?= $article['id'] ?>" class="btn btn-sm btn-secondary">Upravit</a>
-                        <a href="<?= ADMIN_URL ?>/articles.php?delete=<?= $article['id'] ?>&csrf_token=<?= h(csrf_token()) ?>"
-                           class="btn btn-sm btn-danger"
-                           data-confirm="Opravdu smazat článek '<?= h($article['title']) ?>'?">Smazat</a>
+                        <form method="post" style="display:inline" onsubmit="return confirm('Opravdu smazat článek \'<?= h($article['title']) ?>\'?')">
+                            <?= csrf_field() ?>
+                            <input type="hidden" name="delete" value="<?= $article['id'] ?>">
+                            <button type="submit" class="btn btn-sm btn-danger">Smazat</button>
+                        </form>
                     </td>
                 </tr>
                 <?php endforeach; ?>

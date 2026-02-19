@@ -12,14 +12,26 @@ if (auth_check()) {
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!csrf_verify()) {
+    // Brute force ochrana - max 5 pokusů za 15 minut
+    $now = time();
+    $_SESSION['login_attempts'] = array_filter(
+        $_SESSION['login_attempts'] ?? [],
+        fn($t) => $now - $t < 900
+    );
+
+    if (count($_SESSION['login_attempts']) >= 5) {
+        $error = 'Příliš mnoho neúspěšných pokusů. Zkuste to za 15 minut.';
+    } elseif (!csrf_verify()) {
         $error = 'Neplatný bezpečnostní token. Zkuste to znovu.';
     } else {
         $username = trim($_POST['username'] ?? '');
         $password = $_POST['password'] ?? '';
         if (auth_login($username, $password)) {
+            // Reset pokusů po úspěšném přihlášení
+            unset($_SESSION['login_attempts']);
             redirect(ADMIN_URL . '/');
         } else {
+            $_SESSION['login_attempts'][] = $now;
             $error = 'Nesprávné uživatelské jméno nebo heslo.';
         }
     }

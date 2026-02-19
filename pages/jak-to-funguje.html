@@ -199,6 +199,8 @@
             <h2>Napište mi</h2>
             <p>Popište mi Váš projekt a já se Vám ozvu.</p>
             <form class="contact-modal-form" id="contactModalForm" action="../send-mail.php" method="POST">
+                <!-- CSRF token -->
+                <input type="hidden" name="csrf_token" id="csrfToken" value="">
                 <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                 <div class="form-group">
                     <label for="modal-name">Jméno</label>
@@ -559,5 +561,6 @@
             }
         }
     </style>
+    <script>fetch('/csrf-token.php').then(r=>r.json()).then(d=>{var e=document.getElementById('csrfToken');if(e)e.value=d.token;});</script>
 </body>
 </html>

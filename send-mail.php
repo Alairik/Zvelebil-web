@@ -1,13 +1,32 @@
 <?php
+session_start();
+
 // Ochrana proti přímému přístupu
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: index.html");
     exit;
 }
 
+// CSRF ochrana
+$token = $_POST['csrf_token'] ?? '';
+if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+    die("Neplatný bezpečnostní token. Vraťte se zpět a zkuste to znovu.");
+}
+// Invalidate token after use (single use)
+unset($_SESSION['csrf_token']);
+
+// Rate limiting - max 3 odeslání za 10 minut
+$now = time();
+$_SESSION['mail_attempts'] = array_filter(
+    $_SESSION['mail_attempts'] ?? [],
+    fn($t) => $now - $t < 600
+);
+if (count($_SESSION['mail_attempts']) >= 3) {
+    die("Příliš mnoho odeslaných zpráv. Zkuste to prosím za několik minut.");
+}
+
 // Honeypot - ochrana proti spamu (skryté pole v formuláři)
 if (!empty($_POST["website"])) {
-    // Bot vyplnil honeypot pole
     die("Spam detekován.");
 }
 
@@ -29,6 +48,11 @@ if (empty($_POST["gdpr_consent"])) {
 // Sanitizace dat
 $jmeno = htmlspecialchars(trim($_POST["name"]), ENT_QUOTES, 'UTF-8');
 $email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
+
+// Ochrana proti email header injection - odstranění newlines
+$email = str_replace(["\r", "\n", "%0a", "%0d"], '', $email);
+$jmeno = str_replace(["\r", "\n", "%0a", "%0d"], '', $jmeno);
+
 $zprava = htmlspecialchars(trim($_POST["message"]), ENT_QUOTES, 'UTF-8');
 
 // Volitelná pole
@@ -55,7 +79,7 @@ $body .= "--------------------------------\n\n";
 $body .= "Odesláno: " . date("d.m.Y H:i:s") . "\n";
 $body .= "IP: " . $_SERVER['REMOTE_ADDR'] . "\n";
 
-// Hlavičky - DŮLEŽITÉ: From musí být z vaší domény, Reply-To je email odesílatele
+// Hlavičky
 $headers = "From: noreply@zvelebil.online\r\n";
 $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
@@ -66,6 +90,9 @@ $mailSent = mail($to, $subject, $body, $headers);
 
 // Potvrzovací email odesilateli
 if ($mailSent) {
+    // Zaznamenat úspěšné odeslání pro rate limiting
+    $_SESSION['mail_attempts'][] = $now;
+
     $confirmSubject = "=?UTF-8?B?" . base64_encode("Děkuji za Vaši zprávu | zvelebil.online") . "?=";
 
     $confirmBody = "Dobrý den, $jmeno,\n\n";
@@ -83,14 +110,11 @@ if ($mailSent) {
     $confirmHeaders .= "Content-Type: text/plain; charset=UTF-8\r\n";
     $confirmHeaders .= "X-Mailer: PHP/" . phpversion();
 
-    // Odeslání potvrzení (neřešíme chybu - hlavní email už odešel)
     mail($email, $confirmSubject, $confirmBody, $confirmHeaders);
 
-    // Úspěch - přesměrování
     header("Location: pages/kontakt-dekuji.html");
     exit;
 } else {
-    // Chyba
     die("Omlouváme se, při odesílání došlo k chybě. Zkuste to prosím znovu nebo napište přímo na info@zvelebil.online");
 }
 ?>
