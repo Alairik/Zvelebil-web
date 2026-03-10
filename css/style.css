@@ -477,12 +477,12 @@ ul, ol {
 
 /* --- Sections General --- */
 .section {
-    padding: var(--spacing-3xl) 0;
+    padding: var(--spacing-2xl) 0;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: var(--spacing-xl);
 }
 
 .section-title {
@@ -513,7 +513,7 @@ ul, ol {
 
 .section-cta {
     text-align: center;
-    margin-top: var(--spacing-xl);
+    margin-top: var(--spacing-lg);
 }
 
 .about-cta {
