@@ -589,31 +589,29 @@
             var total = filteredItems.length;
             if (total === 0) return;
 
-            // Calculate offset to center the current card
+            // Calculate offset - shift left so 1st card is at index 1 (shows partial card on left)
             var cardWidth = getCardWidth();
             var containerWidth = track.parentElement.offsetWidth;
-            var offset = (containerWidth / 2) - (cardWidth / 2) - (currentIndex * cardWidth);
+            // Offset: center the view but start at card 1, so card 0 peeks from left
+            var offset = (containerWidth / 2) - (cardWidth * 1.5) - (currentIndex * cardWidth);
 
             track.style.transform = 'translateX(' + offset + 'px)';
 
-            // How many cards fit in center area (visible = active)
-            var visibleCount = Math.floor(containerWidth / cardWidth);
-            var sideCount = Math.max(1, Math.floor((visibleCount - 1) / 2)); // min 1 = 3 cards visible
+            // Always show exactly 3 active cards (center + 1 on each side)
+            var sideCount = 1;
 
-            // Update card states (active in center, faded on edges)
+            // Update card states (only 3 active, rest faded)
             cards.forEach(function(card, i) {
                 var diff = Math.abs(i - currentIndex);
-                // Handle wrap-around distance
-                var wrapDiff = Math.abs(total - diff);
+                // Handle wrap-around distance for infinite loop feel
+                var wrapDiff = total - diff;
                 diff = Math.min(diff, wrapDiff);
 
                 card.classList.remove('active', 'faded', 'hidden');
                 if (diff <= sideCount) {
                     card.classList.add('active');
-                } else if (diff <= sideCount + 2) {
-                    card.classList.add('faded');
                 } else {
-                    card.classList.add('hidden');
+                    card.classList.add('faded');
                 }
             });
         }
