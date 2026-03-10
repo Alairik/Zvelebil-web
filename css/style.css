@@ -1120,6 +1120,8 @@ ul, ol {
 
 .portfolio-card {
     flex: 0 0 280px;
+    display: flex;
+    flex-direction: column;
     background: var(--color-dark-lighter);
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -1241,6 +1243,9 @@ ul, ol {
 
 .portfolio-content {
     padding: var(--spacing-md);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .portfolio-type {
@@ -1275,6 +1280,7 @@ ul, ol {
 .portfolio-links {
     display: flex;
     gap: var(--spacing-sm);
+    margin-top: auto;
 }
 
 .portfolio-link {
