@@ -479,15 +479,23 @@
             'eshop': 'E-shop'
         };
 
-        // Fallback data if API fails
+        // Portfolio data
         var fallbackData = [
+            {
+                title: 'Zvelebil.online',
+                project_type: 'web',
+                client: 'Vlastní projekt',
+                description: 'Osobní prezentační web s portfoliem a blogem. Moderní design a rychlé načítání.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://zvelebil.online/',
+                project_url: 'https://zvelebil.online'
+            },
             {
                 title: 'ZveleCMS',
                 project_type: 'web',
                 client: 'Vlastní projekt',
                 description: 'Jednoduchý CMS systém pro správu portfolia a obsahu webu.',
-                thumbnail_url: 'https://image.thum.io/get/width/600/https://zvelebil.online/',
-                project_url: 'https://zvelebil.online'
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://zvelebil.online/cms/',
+                project_url: 'https://zvelebil.online/cms/'
             },
             {
                 title: 'DrH Talent Calculator',
@@ -586,26 +594,30 @@
 
         function updateSlider() {
             var cards = track.querySelectorAll('.portfolio-card');
-            var total = filteredItems.length;
+            var total = cards.length;
             if (total === 0) return;
 
             var cardWidth = getCardWidth();
             var containerWidth = track.parentElement.offsetWidth;
-            // Center the current card
             var offset = (containerWidth / 2) - (cardWidth / 2) - (currentIndex * cardWidth);
 
             track.style.transform = 'translateX(' + offset + 'px)';
 
-            // 3 active cards: currentIndex-1, currentIndex, currentIndex+1
-            cards.forEach(function(card, i) {
-                var relPos = i - currentIndex;
-                card.classList.remove('active', 'faded');
-                if (relPos >= -1 && relPos <= 1) {
-                    card.classList.add('active');
+            // Set active/faded classes - 3 center cards are active
+            var minActive = currentIndex - 1;
+            var maxActive = currentIndex + 1;
+
+            for (var i = 0; i < total; i++) {
+                var card = cards[i];
+                var baseClass = 'portfolio-card';
+                var type = card.getAttribute('data-type');
+                if (i >= minActive && i <= maxActive) {
+                    card.className = baseClass + ' active';
                 } else {
-                    card.classList.add('faded');
+                    card.className = baseClass + ' faded';
                 }
-            });
+                card.setAttribute('data-type', type);
+            }
         }
 
         function goTo(index) {
