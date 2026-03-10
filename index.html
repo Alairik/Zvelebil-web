@@ -591,7 +591,11 @@
 
             track.style.transform = 'translateX(' + offset + 'px)';
 
-            // Update card states (active, faded)
+            // How many cards fit in center area (visible = active)
+            var visibleCount = Math.floor(containerWidth / cardWidth);
+            var sideCount = Math.floor((visibleCount - 1) / 2);
+
+            // Update card states (active in center, faded on edges)
             cards.forEach(function(card, i) {
                 var diff = Math.abs(i - currentIndex);
                 // Handle wrap-around distance
@@ -599,9 +603,9 @@
                 diff = Math.min(diff, wrapDiff);
 
                 card.classList.remove('active', 'faded', 'hidden');
-                if (diff === 0) {
+                if (diff <= sideCount) {
                     card.classList.add('active');
-                } else if (diff <= 2) {
+                } else if (diff <= sideCount + 2) {
                     card.classList.add('faded');
                 } else {
                     card.classList.add('hidden');
