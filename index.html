@@ -552,9 +552,7 @@
             card.setAttribute('data-type', item.project_type || 'web');
             card.setAttribute('data-index', index);
 
-            var thumbnail = item.thumbnail_url
-                ? '<div class="portfolio-image"><img src="' + item.thumbnail_url + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy"></div>'
-                : '<div class="portfolio-image portfolio-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>';
+            var thumbnail = '<div class="portfolio-image"><img src="' + (item.thumbnail_url || 'img/portfolio/placeholder.svg') + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy" onerror="this.onerror=null;this.src=\'img/portfolio/placeholder.svg\'"></div>';
 
             var type = item.project_type ? projectTypes[item.project_type] || item.project_type : '';
             var typeHtml = type ? '<span class="portfolio-type">' + type + '</span>' : '';
