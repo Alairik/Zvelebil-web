@@ -535,7 +535,7 @@
 
         var allItems = [];
         var filteredItems = [];
-        var currentIndex = 0;
+        var currentIndex = 1;
 
         function createCard(item, index) {
             var card = document.createElement('div');
@@ -575,7 +575,7 @@
             filteredItems.forEach(function(item, i) {
                 track.appendChild(createCard(item, i));
             });
-            currentIndex = 0;
+            currentIndex = 1;
             updateSlider();
         }
 
@@ -589,26 +589,18 @@
             var total = filteredItems.length;
             if (total === 0) return;
 
-            // Calculate offset - shift left so 1st card is at index 1 (shows partial card on left)
             var cardWidth = getCardWidth();
             var containerWidth = track.parentElement.offsetWidth;
-            // Offset: center the view but start at card 1, so card 0 peeks from left
-            var offset = (containerWidth / 2) - (cardWidth * 1.5) - (currentIndex * cardWidth);
+            // Center the current card
+            var offset = (containerWidth / 2) - (cardWidth / 2) - (currentIndex * cardWidth);
 
             track.style.transform = 'translateX(' + offset + 'px)';
 
-            // Always show exactly 3 active cards (center + 1 on each side)
-            var sideCount = 1;
-
-            // Update card states (only 3 active, rest faded)
+            // 3 active cards: currentIndex-1, currentIndex, currentIndex+1
             cards.forEach(function(card, i) {
-                var diff = Math.abs(i - currentIndex);
-                // Handle wrap-around distance for infinite loop feel
-                var wrapDiff = total - diff;
-                diff = Math.min(diff, wrapDiff);
-
-                card.classList.remove('active', 'faded', 'hidden');
-                if (diff <= sideCount) {
+                var relPos = i - currentIndex;
+                card.classList.remove('active', 'faded');
+                if (relPos >= -1 && relPos <= 1) {
                     card.classList.add('active');
                 } else {
                     card.classList.add('faded');
