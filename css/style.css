@@ -1064,6 +1064,7 @@ ul, ol {
 .portfolio {
     background: var(--color-dark);
     color: var(--color-white);
+    overflow: hidden;
 }
 
 .portfolio .section-title,
@@ -1071,32 +1072,123 @@ ul, ol {
     color: var(--color-white);
 }
 
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--spacing-lg);
+/* Filter buttons */
+.portfolio-filters {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
 }
 
-.portfolio-loading,
-.portfolio-empty {
-    text-align: center;
+.portfolio-filter {
+    padding: 0.6rem 1.5rem;
+    background: transparent;
+    border: 2px solid var(--color-gray-700);
+    border-radius: var(--radius-xl);
     color: var(--color-gray-300);
-    padding: var(--spacing-xl);
-    grid-column: 1 / -1;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.portfolio-filter:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.portfolio-filter.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: var(--color-white);
+}
+
+/* Carousel */
+.portfolio-carousel {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.portfolio-track {
+    display: flex;
+    transition: transform 0.4s ease;
 }
 
 .portfolio-card {
+    flex: 0 0 100%;
     background: var(--color-dark-lighter);
     border-radius: var(--radius-lg);
     overflow: hidden;
     transition: all var(--transition-base);
 }
 
-.portfolio-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    background: var(--color-dark-lighter);
+    border: 2px solid var(--color-gray-700);
+    border-radius: var(--radius-full);
+    color: var(--color-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-base);
+    z-index: 10;
 }
 
+.carousel-btn:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.carousel-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.carousel-prev {
+    left: -70px;
+}
+
+.carousel-next {
+    right: -70px;
+}
+
+/* Dots */
+.portfolio-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.portfolio-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background: var(--color-gray-700);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.portfolio-dot:hover {
+    background: var(--color-gray-500);
+}
+
+.portfolio-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+}
+
+/* Card styles */
 .portfolio-image {
     aspect-ratio: 16 / 10;
     overflow: hidden;
@@ -1107,11 +1199,6 @@ ul, ol {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--transition-base);
-}
-
-.portfolio-card:hover .portfolio-image img {
-    transform: scale(1.05);
 }
 
 .portfolio-placeholder {
@@ -1537,8 +1624,19 @@ ul, ol {
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
-    .portfolio-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    .carousel-prev {
+        left: -55px;
+    }
+    .carousel-next {
+        right: -55px;
+    }
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .carousel-btn svg {
+        width: 20px;
+        height: 20px;
     }
 
     .about-content {
@@ -1608,6 +1706,23 @@ ul, ol {
     .hero-cta {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    /* Portfolio mobile */
+    .portfolio-carousel {
+        max-width: 100%;
+        padding: 0 var(--spacing-sm);
+    }
+    .carousel-prev,
+    .carousel-next {
+        display: none;
+    }
+    .portfolio-filters {
+        gap: var(--spacing-xs);
+    }
+    .portfolio-filter {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 
     .hero-stats {
