@@ -1108,43 +1108,53 @@ ul, ol {
 /* Slider */
 .portfolio-carousel {
     position: relative;
-    overflow: hidden;
-    margin: 0 -var(--spacing-md);
-    padding: 0 var(--spacing-md);
+    overflow: visible;
+    padding: var(--spacing-md) 0;
 }
 
 .portfolio-track {
     display: flex;
     gap: var(--spacing-md);
-    transition: transform 0.4s ease;
-    cursor: grab;
-}
-
-.portfolio-track:active {
-    cursor: grabbing;
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .portfolio-card {
-    flex: 0 0 calc(33.333% - 12px);
-    min-width: 240px;
+    flex: 0 0 280px;
     background: var(--color-dark-lighter);
     border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.4s ease;
+    opacity: 0.4;
+    transform: scale(0.9);
+}
+
+.portfolio-card.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.4);
+}
+
+.portfolio-card.faded {
+    opacity: 0.5;
+    transform: scale(0.92);
+}
+
+.portfolio-card.hidden {
+    opacity: 0.2;
+    transform: scale(0.85);
 }
 
 .portfolio-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    opacity: 1;
 }
 
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: var(--color-dark);
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.7);
     border: 2px solid var(--color-gray-600);
     border-radius: var(--radius-full);
     color: var(--color-white);
@@ -1154,24 +1164,26 @@ ul, ol {
     justify-content: center;
     transition: all var(--transition-base);
     z-index: 10;
+    backdrop-filter: blur(4px);
 }
 
 .carousel-btn:hover {
     background: var(--color-primary);
     border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
 }
 
 .carousel-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 }
 
 .carousel-prev {
-    left: 0;
+    left: 20px;
 }
 
 .carousel-next {
-    right: 0;
+    right: 20px;
 }
 
 /* Dots - hidden for multi-item slider */

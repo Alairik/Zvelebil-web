@@ -478,6 +478,23 @@
         // Fallback data if API fails
         var fallbackData = [
             {
+                title: 'ZveleCMS',
+                project_type: 'web',
+                client: 'Vlastní projekt',
+                description: 'Jednoduchý CMS systém pro správu portfolia a obsahu webu.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://zvelebil.online/',
+                project_url: 'https://zvelebil.online'
+            },
+            {
+                title: 'DrH Talent Calculator',
+                project_type: 'web',
+                client: 'Dračí hlídka (fanouškovský projekt)',
+                description: 'Kalkulačka talentů pro hru Dračí hlídka. Naklikej si postavu a zkoušej různé buildy.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://alairik.github.io/DrH-Talent-Calculator/',
+                project_url: 'https://alairik.github.io/DrH-Talent-Calculator/',
+                github_url: 'https://github.com/Alairik/DrH-Talent-Calculator'
+            },
+            {
                 title: 'Krejčovství Verde Design',
                 project_type: 'web',
                 client: 'Verde Design',
@@ -515,10 +532,11 @@
         var filteredItems = [];
         var currentIndex = 0;
 
-        function createCard(item) {
+        function createCard(item, index) {
             var card = document.createElement('div');
             card.className = 'portfolio-card';
             card.setAttribute('data-type', item.project_type || 'web');
+            card.setAttribute('data-index', index);
 
             var thumbnail = item.thumbnail_url
                 ? '<div class="portfolio-image"><img src="' + item.thumbnail_url + '" alt="' + item.title.replace(/"/g, '&quot;') + '" loading="lazy"></div>'
@@ -547,43 +565,60 @@
             return card;
         }
 
-        var scrollPos = 0;
-
         function renderCarousel() {
             track.innerHTML = '';
-            filteredItems.forEach(function(item) {
-                track.appendChild(createCard(item));
+            filteredItems.forEach(function(item, i) {
+                track.appendChild(createCard(item, i));
             });
-            scrollPos = 0;
-            track.style.transform = 'translateX(0)';
-            updateButtons();
+            currentIndex = 0;
+            updateSlider();
         }
 
-        function getScrollStep() {
+        function getCardWidth() {
             var card = track.querySelector('.portfolio-card');
-            if (!card) return 280;
-            return card.offsetWidth + 16; // card width + gap
+            return card ? card.offsetWidth + 16 : 280;
         }
 
-        function getMaxScroll() {
-            return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth + 80);
+        function updateSlider() {
+            var cards = track.querySelectorAll('.portfolio-card');
+            var total = filteredItems.length;
+            if (total === 0) return;
+
+            // Calculate offset to center the current card
+            var cardWidth = getCardWidth();
+            var containerWidth = track.parentElement.offsetWidth;
+            var offset = (containerWidth / 2) - (cardWidth / 2) - (currentIndex * cardWidth);
+
+            track.style.transform = 'translateX(' + offset + 'px)';
+
+            // Update card states (active, faded)
+            cards.forEach(function(card, i) {
+                var diff = Math.abs(i - currentIndex);
+                // Handle wrap-around distance
+                var wrapDiff = Math.abs(total - diff);
+                diff = Math.min(diff, wrapDiff);
+
+                card.classList.remove('active', 'faded', 'hidden');
+                if (diff === 0) {
+                    card.classList.add('active');
+                } else if (diff <= 2) {
+                    card.classList.add('faded');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
         }
 
-        function scroll(direction) {
-            var step = getScrollStep();
-            var max = getMaxScroll();
-            scrollPos += direction * step;
-            if (scrollPos < 0) scrollPos = 0;
-            if (scrollPos > max) scrollPos = max;
-            track.style.transform = 'translateX(-' + scrollPos + 'px)';
-            updateButtons();
+        function goTo(index) {
+            var total = filteredItems.length;
+            if (total === 0) return;
+            // Infinite loop
+            currentIndex = ((index % total) + total) % total;
+            updateSlider();
         }
 
-        function updateButtons() {
-            var max = getMaxScroll();
-            if (prevBtn) prevBtn.style.opacity = scrollPos <= 0 ? '0.3' : '1';
-            if (nextBtn) nextBtn.style.opacity = scrollPos >= max ? '0.3' : '1';
-        }
+        function next() { goTo(currentIndex + 1); }
+        function prev() { goTo(currentIndex - 1); }
 
         function filterItems(type) {
             if (type === 'all') {
@@ -606,8 +641,8 @@
         });
 
         // Navigation
-        if (prevBtn) prevBtn.onclick = function() { scroll(-1); };
-        if (nextBtn) nextBtn.onclick = function() { scroll(1); };
+        if (prevBtn) prevBtn.onclick = prev;
+        if (nextBtn) nextBtn.onclick = next;
 
         // Load data
         fetch('/admin/api/portfolio.php?limit=20')
