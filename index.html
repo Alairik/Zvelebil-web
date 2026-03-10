@@ -482,6 +482,8 @@
                 project_type: 'web',
                 client: 'Verde Design',
                 description: 'Webová prezentace pro krejčovství specializující se na zakázkové šití.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://alairik.github.io/verde/',
+                project_url: 'https://alairik.github.io/verde/',
                 github_url: 'https://github.com/Alairik/verde-design'
             },
             {
@@ -489,6 +491,7 @@
                 project_type: 'web',
                 client: 'Vlastní projekt',
                 description: 'Osobní projekt ve vývoji. Moderní webová aplikace.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://akrasia.zvelebil.online/',
                 project_url: 'https://akrasia.zvelebil.online'
             },
             {
@@ -502,6 +505,8 @@
                 project_type: 'marketing',
                 client: 'Společně v Jehnicích',
                 description: 'Marketingová konzultace pro komunitní projekt.',
+                thumbnail_url: 'https://image.thum.io/get/width/600/https://alairik.github.io/spolecne-v-jehnicich/',
+                project_url: 'https://alairik.github.io/spolecne-v-jehnicich/',
                 github_url: 'https://github.com/Alairik/spolecne-v-jehnicich'
             }
         ];
@@ -542,37 +547,42 @@
             return card;
         }
 
+        var scrollPos = 0;
+
         function renderCarousel() {
             track.innerHTML = '';
             filteredItems.forEach(function(item) {
                 track.appendChild(createCard(item));
             });
-            updateDots();
-            goToSlide(0);
+            scrollPos = 0;
+            track.style.transform = 'translateX(0)';
+            updateButtons();
         }
 
-        function updateDots() {
-            dotsContainer.innerHTML = '';
-            filteredItems.forEach(function(_, i) {
-                var dot = document.createElement('button');
-                dot.className = 'portfolio-dot' + (i === currentIndex ? ' active' : '');
-                dot.setAttribute('aria-label', 'Slide ' + (i + 1));
-                dot.onclick = function() { goToSlide(i); };
-                dotsContainer.appendChild(dot);
-            });
+        function getScrollStep() {
+            var card = track.querySelector('.portfolio-card');
+            if (!card) return 280;
+            return card.offsetWidth + 16; // card width + gap
         }
 
-        function goToSlide(index) {
-            if (filteredItems.length === 0) return;
-            currentIndex = (index + filteredItems.length) % filteredItems.length;
-            var offset = currentIndex * 100;
-            track.style.transform = 'translateX(-' + offset + '%)';
-
-            var dots = dotsContainer.querySelectorAll('.portfolio-dot');
-            dots.forEach(function(dot, i) {
-                dot.classList.toggle('active', i === currentIndex);
-            });
+        function getMaxScroll() {
+            return Math.max(0, track.scrollWidth - track.parentElement.offsetWidth + 80);
         }
+
+        function scroll(direction) {
+            var step = getScrollStep();
+            var max = getMaxScroll();
+            scrollPos += direction * step;
+            if (scrollPos < 0) scrollPos = 0;
+            if (scrollPos > max) scrollPos = max;
+            track.style.transform = 'translateX(-' + scrollPos + 'px)';
+            updateButtons();
+        }
+
+        function updateButtons() {
+            var max = getMaxScroll();
+            if (prevBtn) prevBtn.style.opacity = scrollPos <= 0 ? '0.3' : '1';
+            if (nextBtn) nextBtn.style.opacity = scrollPos >= max ? '0.3' : '1';
 
         function filterItems(type) {
             if (type === 'all') {
@@ -595,8 +605,8 @@
         });
 
         // Navigation
-        if (prevBtn) prevBtn.onclick = function() { goToSlide(currentIndex - 1); };
-        if (nextBtn) nextBtn.onclick = function() { goToSlide(currentIndex + 1); };
+        if (prevBtn) prevBtn.onclick = function() { scroll(-1); };
+        if (nextBtn) nextBtn.onclick = function() { scroll(1); };
 
         // Load data
         fetch('/admin/api/portfolio.php?limit=20')

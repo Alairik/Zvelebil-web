@@ -1105,34 +1105,47 @@ ul, ol {
     color: var(--color-white);
 }
 
-/* Carousel */
+/* Slider */
 .portfolio-carousel {
     position: relative;
-    max-width: 480px;
-    margin: 0 auto;
     overflow: hidden;
+    margin: 0 -var(--spacing-md);
+    padding: 0 var(--spacing-md);
 }
 
 .portfolio-track {
     display: flex;
+    gap: var(--spacing-md);
     transition: transform 0.4s ease;
+    cursor: grab;
+}
+
+.portfolio-track:active {
+    cursor: grabbing;
 }
 
 .portfolio-card {
-    flex: 0 0 100%;
+    flex: 0 0 calc(33.333% - 12px);
+    min-width: 240px;
     background: var(--color-dark-lighter);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
-    background: var(--color-dark-lighter);
-    border: 2px solid var(--color-gray-700);
+    width: 40px;
+    height: 40px;
+    background: var(--color-dark);
+    border: 2px solid var(--color-gray-600);
     border-radius: var(--radius-full);
     color: var(--color-white);
     cursor: pointer;
@@ -1149,21 +1162,21 @@ ul, ol {
 }
 
 .carousel-btn svg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
 }
 
 .carousel-prev {
-    left: -70px;
+    left: 0;
 }
 
 .carousel-next {
-    right: -70px;
+    right: 0;
 }
 
-/* Dots */
+/* Dots - hidden for multi-item slider */
 .portfolio-dots {
-    display: flex;
+    display: none;
     justify-content: center;
     gap: var(--spacing-xs);
     margin-top: var(--spacing-md);
@@ -1625,19 +1638,9 @@ ul, ol {
 
 /* --- Responsive Design --- */
 @media (max-width: 992px) {
-    .carousel-prev {
-        left: -55px;
-    }
-    .carousel-next {
-        right: -55px;
-    }
-    .carousel-btn {
-        width: 40px;
-        height: 40px;
-    }
-    .carousel-btn svg {
-        width: 20px;
-        height: 20px;
+    .portfolio-card {
+        flex: 0 0 calc(50% - 8px);
+        min-width: 220px;
     }
 
     .about-content {
@@ -1711,8 +1714,20 @@ ul, ol {
 
     /* Portfolio mobile */
     .portfolio-carousel {
-        max-width: 100%;
-        padding: 0 var(--spacing-sm);
+        padding: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .portfolio-carousel::-webkit-scrollbar {
+        display: none;
+    }
+    .portfolio-track {
+        padding: 0 var(--spacing-md);
+    }
+    .portfolio-card {
+        flex: 0 0 85%;
+        min-width: 260px;
     }
     .carousel-prev,
     .carousel-next {
