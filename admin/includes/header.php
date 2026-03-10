@@ -33,6 +33,9 @@ $currentPage = basename($_SERVER['SCRIPT_NAME'], '.php');
             <li class="<?= in_array($currentPage, ['articles', 'article-edit']) ? 'active' : '' ?>">
                 <a href="<?= ADMIN_URL ?>/articles.php">Články</a>
             </li>
+            <li class="<?= in_array($currentPage, ['portfolio', 'portfolio-edit']) ? 'active' : '' ?>">
+                <a href="<?= ADMIN_URL ?>/portfolio.php">Portfolio</a>
+            </li>
             <li class="<?= $currentPage === 'categories' ? 'active' : '' ?>">
                 <a href="<?= ADMIN_URL ?>/categories.php">Kategorie</a>
             </li>
