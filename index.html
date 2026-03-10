@@ -651,19 +651,10 @@
         if (prevBtn) prevBtn.onclick = prev;
         if (nextBtn) nextBtn.onclick = next;
 
-        // Load data
-        fetch('/admin/api/portfolio.php?limit=20')
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                allItems = data.items && data.items.length > 0 ? data.items : fallbackData;
-                filteredItems = allItems.slice();
-                renderCarousel();
-            })
-            .catch(function() {
-                allItems = fallbackData;
-                filteredItems = allItems.slice();
-                renderCarousel();
-            });
+        // Use fallback data directly (defined above in this file)
+        allItems = fallbackData;
+        filteredItems = allItems.slice();
+        renderCarousel();
     })();
     </script>
 </body>
