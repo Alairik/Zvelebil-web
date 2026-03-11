@@ -19,6 +19,14 @@ Options -Indexes
 RewriteEngine On
 RewriteBase /
 
+# ── Subdoménové aliasy ─────────────────────────────────────────────
+# NIKDY NEMAZAT ani NEMĚNIT – řídí routing pro akrasia.zvelebil.online
+# Bez tohoto pravidla akrasia.zvelebil.online nezobrazí Akrasia web.
+# Akrasia běží v /www/akrasia/ a přistupuje se přes subdoménu alias Wedos.
+RewriteCond %{HTTP_HOST} ^akrasia\.zvelebil\.online$ [NC]
+RewriteCond %{REQUEST_URI} !^/akrasia/
+RewriteRule ^(.*)$ /akrasia/$1 [L]
+
 # Remove trailing slash (except for directories)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)/$ /$1 [R=301,L]
