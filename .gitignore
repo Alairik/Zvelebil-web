@@ -1,0 +1,6 @@
+# Přihlašovací údaje – jen na serveru, nikdy v gitu
+admin/lib/config.local.php
+
+# Uživatelské nahrávky z CMS
+admin/uploads/*
+!admin/uploads/.htaccess

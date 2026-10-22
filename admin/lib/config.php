@@ -3,11 +3,15 @@
  * CMS Configuration
  */
 
-// Database
-define('DB_HOST', 'md395.wedos.net');
-define('DB_NAME', 'd391762_cmstst');
-define('DB_USER', 'a391762_cmstst');
-define('DB_PASS', 'Jvyz23:kpgn4uYW');
+// Database – přihlašovací údaje (DB_HOST, DB_NAME, DB_USER, DB_PASS) jsou v
+// config.local.php, který není v gitu (viz config.local.example.php)
+$localConfig = __DIR__ . '/config.local.php';
+if (!is_file($localConfig)) {
+    http_response_code(503);
+    error_log('CMS: chybí ' . $localConfig);
+    exit('Služba je dočasně nedostupná.');
+}
+require_once $localConfig;
 define('DB_CHARSET', 'utf8mb4');
 
 // Paths
