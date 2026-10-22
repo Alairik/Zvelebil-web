@@ -22,9 +22,13 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /www/
+          # Nový soubor se stavem: starý odkazoval na neexistující složku /www/CMS
+          # a každé nasazení padalo na FTP 550 (od 11. 3. 2026).
+          state-name: .ftp-deploy-sync-state-v2.json
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             .github/**
             README.md
+            CLAUDE.md
